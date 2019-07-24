@@ -1,0 +1,13 @@
+package dataStructures;
+
+public class Test {
+	public static void main(String[] args) {
+		BagTree brooks = new BagTree(10);
+		brooks.bagPlace(3);
+		brooks.bagPlace(4);
+		System.out.println(brooks);
+		//SplayTree<Integer> bob = new SplayTree<>();
+		//bob.insert(2);
+		//System.out.println(bob);
+	}
+}

@@ -1,0 +1,32 @@
+package dataStructures;
+
+class BagTree extends SplayTree<Integer> {
+	final Integer  BAG_SIZE;
+	int bagCount;
+
+	BagTree(Integer size){
+		BAG_SIZE = size;
+	}
+
+	void bagPlace(Integer _value){
+		if (root == null) {this.insert(BAG_SIZE);}
+		SplayTreeNode<Integer> bag = bagFindHelper(_value,root);
+		bag.value -= _value;
+		System.out.println(bag);
+		this.delete(bag);
+		if (bag.value.compareTo(0) != 1){
+			bagCount++;
+			bag.value = 0;
+		}
+		this.insert(bag.value);
+	}
+
+	SplayTreeNode<Integer> bagFindHelper(Integer _value, SplayTreeNode<Integer> _node){
+		if (_node.value.compareTo(_value) != -1) {return _node;}
+		if (_node.right == null) {
+			_node.right = new SplayTreeNode<Integer>(_value,_node.parent,_node.header);
+			return _node.right;
+		}
+		return bagFindHelper(_value,_node.right);
+	}
+}
