@@ -22,6 +22,6 @@ public class EdgeNode {
 	
 	@Override
 	public String toString() {
-		return ("c["+child+"] p["+parent+"] w["+weight+"]");
+		return ("c["+child+"] p["+parent+"] w["+weight+"] ");
 	}
 }

@@ -4,6 +4,9 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+/*
+ * Super quick graph data structure for playing with algorithms.
+ */
 public class Graph {
 	boolean directed;
 	EdgeNode[] edges;
@@ -19,6 +22,14 @@ public class Graph {
 		edges = new EdgeNode[nverts];
 	}
 	
+	/**
+	 * Graph can be initialized from a file that is formatted as follows:
+	 * First line contains the number of vertices, followed by the number of edges.
+	 * All following lines consist of single edge definitions, they are formated as follows:
+	 * Starting vertex then the ending vertex then the edge weight.
+	 * All values are assumed to be integers.
+	 * @param file
+	 */
 	Graph(File file) {
 		Scanner reader = null;
 		try {
@@ -62,5 +73,22 @@ public class Graph {
 		obj.processEdge();
 		obj.processVertexEarly();
 		obj.processVertexLate();
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder string = new StringBuilder();
+		String newline = "\n";
+		String bigspace = "   ";
+		for (int i = 0; i < nverts; i++) {
+			string.append(i); string.append(bigspace);
+			EdgeNode edge = edges[i];
+			while (edge != null) {
+				string.append(edge.toString());
+				edge = edge.next;
+			}
+			string.append(newline);
+		}
+		return string.toString();
 	}
 }
