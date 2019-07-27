@@ -1,14 +1,13 @@
 package miscellaneous;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class MyAnagram {
 	private int PHRASE_LENGTH;
 	private ArrayList<Character> phrase;
 	private char[] current;
 	private int anaCount = 0;
-	//private ArrayList<Integer> wordStops = new ArrayList<>();
-	int[] wordStops;
 	int[] wordStarts;
 	PrefixDictionary myDic;
 	
@@ -19,14 +18,11 @@ public class MyAnagram {
 		}
 		PHRASE_LENGTH = phrase.size();
 		current = new char[PHRASE_LENGTH];
-		wordStops = new int[PHRASE_LENGTH];
 		wordStarts = new int[PHRASE_LENGTH];
 		for (int i = 0; i < PHRASE_LENGTH; i++) {
-			wordStops[i] = -1;
 			wordStarts[i] = -1;
 		}
 		myDic = PrefixDictionary.getDictionary();
-		//System.out.println(myDic.toString());
 	}
 	
 	public void generateAnagram() {
@@ -34,14 +30,15 @@ public class MyAnagram {
 	}
 	
 	private void permute(int k) {
-		//System.out.println("k "+k);
 		if (isDone(k)) {
 			processDone();
 			return;
 		}
-		for (int i = 0; i < phrase.size(); i++) {//char c : phrase) {
+		HashSet<Character> repeats = new HashSet<>();
+		for (int i = 0; i < phrase.size(); i++) {
 			current[k] = phrase.get(i);
-			if (!isAllowed(k)) continue;
+			if (!isAllowed(k) || repeats.contains(phrase.get(i))) continue;
+			repeats.add(phrase.get(i));
 			phrase.remove(i);
 			permute(k+1);
 			phrase.add(i,current[k]);
@@ -53,11 +50,22 @@ public class MyAnagram {
 	}
 	
 	private void processDone(){
-		if (wordStops[wordStops.length-1] != -1) {
-			for(char c : current) {
-				//System.out.print(c);
+		ArrayList<Integer> startList = new ArrayList<>();
+		if (wordStarts[wordStarts.length-1] != -1) {
+			int n = wordStarts.length-1;
+			while (n != -1) {
+				startList.add(n);
+				n = wordStarts[n];
+				startList.add(n);
+				n--;
 			}
-			//System.out.println();
+			for (int i = startList.size()-1; i > 0; i-=2) {
+				for (int j = startList.get(i); j <= startList.get(i-1); j++){
+					System.out.print(current[j]);
+				}
+				System.out.print(" ");
+			}
+			System.out.println();
 			anaCount++;
 		}
 	}
@@ -67,18 +75,19 @@ public class MyAnagram {
 		boolean isPrefix = false;
 		int trieResult = -1;
 		for (int i = 0; i < k; i++) {
-			if (wordStops[i] != -1) {
+			if (wordStarts[i] != -1) {
 				trieResult = myDic.checkWord(current, i+1, k);
+				if (trieResult == 0) {isPrefix = true;}
+				if (trieResult == 1) {isWord = true; wordStarts[k] = i+1;}
 			}
-			if (trieResult == 0) {isPrefix = true;}
-			if (trieResult == 1) {isWord = true; wordStarts[k] = i;}
 		}
-		//System.out.println("current[0] "+current[0]);
+		boolean flag = true;
+		if (isWord) {flag = false;}
 		trieResult = myDic.checkWord(current, 0, k);
 		if (trieResult == 0) {isPrefix = true;}
 		if (trieResult == 1) {isWord = true;}
-		if (isWord) {wordStops[k] = k;}
-		else {wordStops[k] = -1;}
+		if (isWord && flag) {wordStarts[k] = 0;}
+		if(!isWord) {wordStarts[k] = -1;}
 		
 		return (isPrefix || isWord);
 	}
