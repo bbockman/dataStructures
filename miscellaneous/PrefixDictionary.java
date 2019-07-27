@@ -22,8 +22,6 @@ public class PrefixDictionary {
 				"/resources/no_short_10k_words.txt"))){
 			int i = 0;
 			while (myReader.hasNextLine()) {
-				System.out.println(i++);
-				//System.out.println(myReader.nextLine().toUpperCase().toCharArray());
 				addWord(myReader.nextLine().toUpperCase().toCharArray());
 			}
 		} catch (FileNotFoundException e) {e.printStackTrace();}
@@ -58,12 +56,9 @@ public class PrefixDictionary {
 	
 	public int checkWord(char[] word, int start, int end) {
 		if (start > end) {System.out.println("Warning trie search word start > end");}
-		//System.out.println("start "+start+" end "+end);
 		TrieNode current = head;
 		int i = start;
 		while (current != null && i <= end) {
-			//System.out.println("word[i] "+word[i]+ " i "+i);
-			//System.out.println("c - 'A' "+(word[i]-'A'));
 			current = current.links[Character.toUpperCase(word[i++])-'A'];
 		}
 		if (current == null) return -1;
