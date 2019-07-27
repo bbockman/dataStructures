@@ -5,6 +5,7 @@ import java.io.File;
 /**
  * Class for testing DijkstraHeap data structure class.
  * Graph is read from text file using Graph class.
+ * Runtime should be O(ElogV), Fibonacci heap could produce O(VlogV)
  * @author Brooks
  *
  */
