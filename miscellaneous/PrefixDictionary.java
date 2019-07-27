@@ -19,8 +19,11 @@ public class PrefixDictionary {
 	
 	private void generateDictionary() {
 		try (Scanner myReader = new Scanner(new File(System.getProperty("user.dir")+
-				"/resources/google-10000-english-medium.txt"))){
+				"/resources/no_short_10k_words.txt"))){
+			int i = 0;
 			while (myReader.hasNextLine()) {
+				System.out.println(i++);
+				//System.out.println(myReader.nextLine().toUpperCase().toCharArray());
 				addWord(myReader.nextLine().toUpperCase().toCharArray());
 			}
 		} catch (FileNotFoundException e) {e.printStackTrace();}
