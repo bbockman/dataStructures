@@ -20,7 +20,6 @@ public class PrefixDictionary {
 	private void generateDictionary() {
 		try (Scanner myReader = new Scanner(new File(System.getProperty("user.dir")+
 				"/resources/no_short_10k_words.txt"))){
-			int i = 0;
 			while (myReader.hasNextLine()) {
 				addWord(myReader.nextLine().toUpperCase().toCharArray());
 			}

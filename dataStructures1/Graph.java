@@ -9,9 +9,9 @@ import java.io.FileNotFoundException;
  */
 public class Graph {
 	boolean directed;
-	EdgeNode[] edges;
+	public EdgeNode[] edges;
 	int nedges;
-	int nverts;
+	public int nverts;
 	boolean[] visited;
 	boolean[] processed;
 	
@@ -30,7 +30,7 @@ public class Graph {
 	 * All values are assumed to be integers.
 	 * @param file
 	 */
-	Graph(File file) {
+	public Graph(File file) {
 		Scanner reader = null;
 		try {
 			reader = new Scanner(file);
@@ -90,5 +90,9 @@ public class Graph {
 			string.append(newline);
 		}
 		return string.toString();
+	}
+	
+	public int getVerts() {
+		return nverts;
 	}
 }

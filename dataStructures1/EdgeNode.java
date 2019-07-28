@@ -2,9 +2,9 @@ package dataStructures1;
 
 public class EdgeNode {
 	int weight;
-	int child;
-	int parent;
-	EdgeNode next;
+	public int child;
+	public int parent;
+	public EdgeNode next;
 	
 	EdgeNode(){
 		this(-1,-1,-1);
