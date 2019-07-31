@@ -97,7 +97,7 @@ public class MyAnagram {
 	}
 	
 	public static void main(String[] args) {
-		MyAnagram ana = new MyAnagram("tuesday november third");
+		MyAnagram ana = new MyAnagram("tuesday november");
 		ana.generateAnagram();
 		if (ana.getCount() == 0) {System.out.println("No anagrams found that contain all characters.");}
 		System.out.println("Anagrams found " + ana.getCount());
