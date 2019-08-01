@@ -63,7 +63,7 @@ public class IntegerPartition {
 		System.out.println("No partition possible.");
 	}
 	
-	public ArrayList<Integer> checkPartition() {
+	private ArrayList<Integer> checkPartition() {
 		int sum = 0;
 		for (int i : I) {
 			sum += i;
